@@ -1,8 +1,18 @@
 const express=require('express');
 const app=express();
+const cors = require("cors");
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+const corsOptions = {
+  origin: "https://frontendbfhl-lemon.vercel.app/", // Change this to your actual frontend URL
+  methods: ["POST", "GET"],
+  allowedHeaders: ["Content-Type"]
+};
+
+// ✅ Apply CORS only to the /bfhl route (Prevents crashing)
+app.options("/bfhl", cors(corsOptions)); 
+app.use("/bfhl", cors(corsOptions)); 
 
 let num=[];
 let str=[];
