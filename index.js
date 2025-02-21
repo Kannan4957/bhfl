@@ -1,22 +1,25 @@
 const express=require('express');
 const app=express();
-const cors = require("cors");
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-const corsOptions = {
-  origin: "https://frontendbfhl-lemon.vercel.app/", // Change this to your actual frontend URL
-  methods: ["POST", "GET"],
-  allowedHeaders: ["Content-Type"]
-};
-
-// ✅ Apply CORS only to the /bfhl route (Prevents crashing)
-app.options("/bfhl", cors(corsOptions)); 
-app.use("/bfhl", cors(corsOptions)); 
 
 let num=[];
 let str=[];
 let strhigh=[];
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); 
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(204); // Respond to preflight request
+    }
+
+    next();
+});
+
 app.post('/bfhl',async (req,res)=>{
 
     const {data}=await req.body;
