@@ -43,8 +43,6 @@ app.get("/bfhl", (req, res) => {
     res.status(200).json({ operation_code: 1 });
 });
 
-module.exports = serverless(app);
-/*
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
-});*/
+});
