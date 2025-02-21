@@ -1,12 +1,15 @@
 const express=require('express');
 const app=express();
 const port = process.env.PORT || 3000;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // Handles form data as well
+
 let num=[];
 let str=[];
 let strhigh=[];
 app.post('/bfhl',async (req,res)=>{
 
-    const {data}=await req.body;
+    const {data}= req.body;
     if (!data || !Array.isArray(data)) {
         return res.status(400).json({
             is_success: false,
